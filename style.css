@@ -24,6 +24,7 @@ th {
 td {
     border: 1px solid black;
     padding: 2px 0;
+    height: 60px;
 }
 
 form input {
@@ -37,6 +38,7 @@ form div {
 form {
     border: 1px solid black;
     max-width: 400px;
+    max-height: 300px;
     margin: 10px;
     padding: 8px;
     font-size: 18px;
