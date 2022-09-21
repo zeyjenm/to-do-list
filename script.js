@@ -18,7 +18,8 @@ const toDoFactory = (task, priority, dueDate) => {
 
 
 // Function to add to-dos to the DOM
-
+const formBtn = document.querySelector('#form-button');
+const form = document.querySelector('form');
 const table = document.querySelector('table');
 
 function addToDo (input) {  //Creates a new row containing the to-do information
@@ -30,15 +31,22 @@ function addToDo (input) {  //Creates a new row containing the to-do information
             newTableRow.appendChild(newTbCell);
         }
     table.appendChild(newTableRow);
-    
 }
 
 function newToDo (task, priority, dueDate) {
     const newTask = toDoFactory(task, priority, dueDate);
     addToDo(newTask);
-    console.log(newTask);
 
 }
+
+formBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const formToDo = new FormData(form);
+    let task = formToDo.get('task');
+    let due = formToDo.get('due-date');
+    let priority = formToDo.get('priority');
+    newToDo(task, priority, due);
+});
 
 // Categories for separate lists of to-dos
 
