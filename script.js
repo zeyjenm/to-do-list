@@ -36,7 +36,6 @@ function addToDo (input) {  //Creates a new row containing the to-do information
 function newToDo (task, priority, dueDate) {
     const newTask = toDoFactory(task, priority, dueDate);
     addToDo(newTask);
-
 }
 
 formBtn.addEventListener('click', (e) => {

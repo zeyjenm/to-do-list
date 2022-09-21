@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Indie+Flower">
     <script src="script.js" defer></script>
 </head>
 <body>
     <h1>To-Do:</h1>
+    <div class="contents">
     <table>
         <thead>
             <tr>
@@ -18,11 +21,17 @@
                 <th>Priority</th>
                 <th>Date added</th>
             </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         </thead>
     </table>
     <form>
         <div>
-            <label for="task">New To-Do:
+            <label for="task">To-Do:
                 <input type="text" name="task" id="task">
             </label>
         </div>
@@ -42,5 +51,6 @@
         </div>
         <button type="button" id="form-button">Submit</button>
     </form>
+    </div>
 </body>
 </html>
