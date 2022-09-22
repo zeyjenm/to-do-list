@@ -37,22 +37,43 @@ const toDoFactory = (task, priority, dueDate, category) => {
 const formBtn = document.querySelector('#form-button');
 const form = document.querySelector('form');
 const table = document.querySelector('table');
+const tableRows = document.querySelectorAll('tr');
+
+const personalBtn = document.querySelector('#personal-btn');
+const workBtn = document.querySelector('#work-btn');
+const socialBtn = document.querySelector('social-btn');
 
 function addToDo (input) {  //Creates a new row containing the to-do information
     const newTableRow = document.createElement('tr');
-    const toDoProperties = ['task', 'dueDate', 'priority', 'date'];       
+    const toDoProperties = ['task', 'dueDate', 'priority', 'date', 'category'];       
         for (let i = 0; i < 4; i++) {                           
             const newTbCell = document.createElement('td');
             newTbCell.textContent += input[toDoProperties[i]];
+            newTableRow.setAttribute('value', input[toDoProperties[4]]);
             newTableRow.appendChild(newTbCell);
         }
     table.appendChild(newTableRow);
+// Category viewer 
+    personalBtn.addEventListener('click', () => {
+        if (newTableRow.getAttribute('value') != 'personal') {
+            newTableRow.style.display = 'none';
+        }
+    });
+    workBtn.addEventListener('click', () => {
+        if (newTableRow.getAttribute('value') != 'work') {
+            newTableRow.style.display = 'none';
+        }
+    });
+    socialBtn.addEventListener('click', () => {
+        if (newTableRow.getAttribute('value') != 'social') {
+            newTableRow.style.display = 'none';
+        }   
+    });
 }
 
 function newToDo (task, priority, dueDate, category) {
     const newTask = toDoFactory(task, priority, dueDate, category);
     addToDo(newTask);
-    console.log(categoryOrganiser);
 }
 
 formBtn.addEventListener('click', (e) => {
@@ -64,6 +85,13 @@ formBtn.addEventListener('click', (e) => {
     let category = formToDo.get('category');
     newToDo(task, priority, due, category);
 });
+
+
+// sort ?
+
+
+
+
 
 
 
