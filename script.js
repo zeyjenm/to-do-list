@@ -1,18 +1,34 @@
+const categoryOrganiser = {
+    personal: [],
+    work: [],
+    social: [],
+}
+
 // factory for 'to-do' object with date, action to be done, status(complete)? priority
 
-const toDoFactory = (task, priority, dueDate) => {
+const toDoFactory = (task, priority, dueDate, category) => {
     const getCurrentDate = Intl.DateTimeFormat("en", {
         dateStyle: 'short',                                 //format date to have dd/mm/yy
     });
     const date = getCurrentDate.format(Date.now()); 
-
-    
-
+    const organiseCategory = () => {
+        if (category == 'personal') {
+            categoryOrganiser.personal.unshift({task, priority, dueDate, category});
+        }
+        else if (category == 'work') {
+            categoryOrganiser.work.unshift({task, priority, dueDate, category});
+        }
+        else if (category == 'social') {
+            categoryOrganiser.social.unshift({task, priority, dueDate, category});
+        }
+    }
+    organiseCategory();
     return {
         task,
         dueDate,
         priority,
-        date
+        date,
+        category
     }
 }
 
@@ -33,9 +49,10 @@ function addToDo (input) {  //Creates a new row containing the to-do information
     table.appendChild(newTableRow);
 }
 
-function newToDo (task, priority, dueDate) {
-    const newTask = toDoFactory(task, priority, dueDate);
+function newToDo (task, priority, dueDate, category) {
+    const newTask = toDoFactory(task, priority, dueDate, category);
     addToDo(newTask);
+    console.log(categoryOrganiser);
 }
 
 formBtn.addEventListener('click', (e) => {
@@ -44,10 +61,11 @@ formBtn.addEventListener('click', (e) => {
     let task = formToDo.get('task');
     let due = formToDo.get('due-date');
     let priority = formToDo.get('priority');
-    newToDo(task, priority, due);
+    let category = formToDo.get('category');
+    newToDo(task, priority, due, category);
 });
 
-// Categories for separate lists of to-dos
+
 
 
 // Local storage to remember a user's tasks
