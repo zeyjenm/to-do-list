@@ -58,15 +58,24 @@ function addToDo (input) {  //Creates a new row containing the to-do information
         if (newTableRow.getAttribute('value') != 'personal') {
             newTableRow.style.display = 'none';
         }
+        else if (newTableRow.getAttribute('value') == 'personal') {
+            newTableRow.style.display = 'contents';
+        }
     });
     workBtn.addEventListener('click', () => {
         if (newTableRow.getAttribute('value') != 'work') {
             newTableRow.style.display = 'none';
         }
+        else if (newTableRow.getAttribute('value') == 'work') {
+            newTableRow.style.display = 'contents';
+        }
     });
     socialBtn.addEventListener('click', () => {
         if (newTableRow.getAttribute('value') != 'social') {
             newTableRow.style.display = 'none';
+        }
+        else if (newTableRow.getAttribute('value') == 'social') {
+            newTableRow.style.display = 'contents';
         }
     });
 }
