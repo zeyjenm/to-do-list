@@ -41,7 +41,7 @@ const tableRows = document.querySelectorAll('tr');
 
 const personalBtn = document.querySelector('#personal-btn');
 const workBtn = document.querySelector('#work-btn');
-const socialBtn = document.querySelector('social-btn');
+const socialBtn = document.querySelector('#social-btn'); 
 
 function addToDo (input) {  //Creates a new row containing the to-do information
     const newTableRow = document.createElement('tr');
@@ -67,7 +67,7 @@ function addToDo (input) {  //Creates a new row containing the to-do information
     socialBtn.addEventListener('click', () => {
         if (newTableRow.getAttribute('value') != 'social') {
             newTableRow.style.display = 'none';
-        }   
+        }
     });
 }
 
@@ -86,8 +86,11 @@ formBtn.addEventListener('click', (e) => {
     newToDo(task, priority, due, category);
 });
 
+newToDo("Cousin's birthday", "2022/11/18", "medium", "social");
+newToDo("Bonus shift 12-5pm", "2022/09/28", "high", "work");
+newToDo("Pick up dry-cleaning", "2022/09/24", "medium", "personal");
 
-// sort ?
+
 
 
 
