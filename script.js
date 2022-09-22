@@ -1,8 +1,11 @@
+
 const categoryOrganiser = {
     personal: [],
     work: [],
     social: [],
 }
+
+let storageObj = [];
 
 // factory for 'to-do' object with date, action to be done, status(complete)? priority
 
@@ -23,12 +26,16 @@ const toDoFactory = (task, priority, dueDate, category) => {
         }
     }
     organiseCategory();
+    storageObj.push({task, priority, dueDate, category});
+    let JSONObj = JSON.stringify(storageObj);
+    localStorage.setItem('key', JSONObj);
+    console.log(storageObj);
     return {
         task,
         dueDate,
         priority,
         date,
-        category
+        category,
     }
 }
 
@@ -51,7 +58,7 @@ function addToDo (input) {  //Creates a new row containing the to-do information
             newTbCell.textContent += input[toDoProperties[i]];
             newTableRow.setAttribute('value', input[toDoProperties[4]]);
             newTableRow.appendChild(newTbCell);
-        }
+        }    
     table.appendChild(newTableRow);
 // Category viewer 
     personalBtn.addEventListener('click', () => {
@@ -95,10 +102,21 @@ formBtn.addEventListener('click', (e) => {
     newToDo(task, priority, due, category);
 });
 
-newToDo("Cousin's birthday", "2022/11/18", "medium", "social");
-newToDo("Bonus shift 12-5pm", "2022/09/28", "high", "work");
-newToDo("Pick up dry-cleaning", "2022/09/24", "medium", "personal");
 
+const getStorage = () => {
+    const parsed = JSON.parse(localStorage.getItem('key'));
+    console.log(parsed);
+    for (let i = 0; i <= storageObj.length; i++) {
+    newToDo(parsed[i].task, parsed[i].dueDate, parsed[i].priority, parsed[i].date);
+    }
+};
+const refresh = document.querySelector('#refresh');
+
+refresh.addEventListener('click', () => {
+    getStorage();
+})
+
+console.log(localStorage.length);
 
 
 
