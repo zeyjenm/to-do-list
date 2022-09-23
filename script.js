@@ -1,32 +1,13 @@
-
-const categoryOrganiser = {
-    personal: [],
-    work: [],
-    social: [],
-}
-
 let storageObj = [];
 
 // factory for 'to-do' object with date, action to be done, status(complete)? priority
 
-const toDoFactory = (task, priority, dueDate, category) => {
+const toDoFactory = (task, dueDate, priority, category) => {
     const getCurrentDate = Intl.DateTimeFormat("en", {
         dateStyle: 'short',                                 //format date to have dd/mm/yy
     });
-    const date = getCurrentDate.format(Date.now()); 
-    const organiseCategory = () => {
-        if (category == 'personal') {
-            categoryOrganiser.personal.unshift({task, priority, dueDate, category});
-        }
-        else if (category == 'work') {
-            categoryOrganiser.work.unshift({task, priority, dueDate, category});
-        }
-        else if (category == 'social') {
-            categoryOrganiser.social.unshift({task, priority, dueDate, category});
-        }
-    }
-    organiseCategory();
-    storageObj.push({task, priority, dueDate, category});
+    const date = getCurrentDate.format(Date.now());
+    storageObj.push({task, dueDate, priority, date, category});
     let JSONObj = JSON.stringify(storageObj);
     localStorage.setItem('key', JSONObj);
     console.log(storageObj);
@@ -35,7 +16,8 @@ const toDoFactory = (task, priority, dueDate, category) => {
         dueDate,
         priority,
         date,
-        category,
+        JSONObj,
+        category
     }
 }
 
@@ -52,21 +34,22 @@ const socialBtn = document.querySelector('#social-btn');
 
 function addToDo (input) {  //Creates a new row containing the to-do information
     const newTableRow = document.createElement('tr');
-    const toDoProperties = ['task', 'dueDate', 'priority', 'date', 'category'];       
+    const toDoProperties = ['task', 'dueDate', 'priority', 'category', 'date'];       
         for (let i = 0; i < 4; i++) {                           
             const newTbCell = document.createElement('td');
             newTbCell.textContent += input[toDoProperties[i]];
-            newTableRow.setAttribute('value', input[toDoProperties[4]]);
+            newTableRow.setAttribute('value', input[toDoProperties[3]]);
             newTableRow.appendChild(newTbCell);
         }    
     table.appendChild(newTableRow);
 // Category viewer 
     personalBtn.addEventListener('click', () => {
-        if (category != 'personal') {
+        if (newTableRow.getAttribute('value') != 'personal') {
             newTableRow.style.display = 'none';
         }
         else if (newTableRow.getAttribute('value') == 'personal') {
-            newTableRow.style.display = 'contents';
+            const newTbCell = document.createElement('td');
+            newTbCell.textContent += input[toDoProperties[i]];
         }
     });
     workBtn.addEventListener('click', () => {
@@ -92,8 +75,7 @@ function newToDo (task, dueDate, priority, category) {
     addToDo(newTask);
 }
 
-formBtn.addEventListener('click', (e) => {
-    e.preventDefault();
+formBtn.addEventListener('click', () => {
     const formToDo = new FormData(form);
     let task = formToDo.get('task');
     let due = formToDo.get('due-date');
@@ -107,7 +89,7 @@ const getStorage = () => {
     const parsed = JSON.parse(localStorage.getItem('key'));
     console.log(parsed);
     for (let i = 0; i <= storageObj.length; i++) {
-    newToDo(parsed[i].task, parsed[i].dueDate, parsed[i].priority, parsed[i].date, parsed[i].category);
+    newToDo(parsed[i].task, parsed[i].dueDate, parsed[i].priority, parsed[i].category, parsed[i].date);
     }
 };
 const refresh = document.querySelector('#refresh');
